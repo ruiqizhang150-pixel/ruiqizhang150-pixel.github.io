@@ -1,0 +1,27 @@
+/*
+  檔案功能：_form.css
+  被引用目的：表單欄位、標籤、輸入框與送出按鈕樣式，適合聯絡表單或後台欄位。
+  編寫安排：以模組化方式集中管理相關 class，讓 style.css 可以用 @import 組合多個小檔案，避免所有樣式混在單一大檔中。
+  與 HTML 的關係：HTML 先使用語意清楚的 class 名稱，本檔再針對這些 class 定義可重複使用的視覺規則。
+*/
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.form-item {
+  /* 設定下方外距。 */
+  margin-bottom: 15px;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.form-item label {
+  /* 設定下方外距。 */
+  margin-bottom: 5px;
+  /* 設定元素顯示模式，例如 block、inline-block、flex。 */
+  display: block;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.form-element {
+  /* 設定元素寬度，是版型與欄位比例的基礎。 */
+  width: 100%;
+  /* 設定邊框。 */
+  border: 1px solid #151515;
+  /* 設定內距，控制內容與邊界之間的空間。 */
+  padding: 4px 10px;}

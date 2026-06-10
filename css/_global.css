@@ -1,0 +1,53 @@
+/*
+  檔案功能：_global.css
+  被引用目的：全站基礎樣式，例如字體、背景、文字顏色、圖片、連結與共通元素。
+  編寫安排：以模組化方式集中管理相關 class，讓 style.css 可以用 @import 組合多個小檔案，避免所有樣式混在單一大檔中。
+  與 HTML 的關係：HTML 先使用語意清楚的 class 名稱，本檔再針對這些 class 定義可重複使用的視覺規則。
+*/
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+*,
+*:before,
+*:after {
+  /* 設定盒模型計算方式，常用 border-box 讓尺寸更直覺。 */
+  box-sizing: inherit;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+html {
+  /* 設定盒模型計算方式，常用 border-box 讓尺寸更直覺。 */
+  box-sizing: border-box;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+body {
+  /* 設定字體家族，影響網站的氣質。 */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* 設定文字大小。 */
+  font-size: 16px;
+  /* 設定行高，影響段落閱讀節奏。 */
+  line-height: 1.5;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+a {
+  /* 設定文字顏色。 */
+  color: #000;
+  /* 設定連結底線等文字裝飾。 */
+  text-decoration: none;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+a:hover {
+  /* 設定文字顏色。 */
+  color: #4ea1d3;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.img-fluid {
+  /* 限制最大寬度，避免內容在大螢幕上過度拉長。 */
+  max-width: 100%;
+  /* 設定元素高度。 */
+  height: auto;
+  /* 設定元素顯示模式，例如 block、inline-block、flex。 */
+  display: block;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.img-rounded {
+  /* 設定圓角，影響卡片與按鈕的柔和程度。 */
+  border-radius: 50%;}

@@ -1,0 +1,48 @@
+/*
+  檔案功能：_table.css
+  被引用目的：表格樣式，用於履歷、展覽年表、作品資料或後台列表。
+  編寫安排：以模組化方式集中管理相關 class，讓 style.css 可以用 @import 組合多個小檔案，避免所有樣式混在單一大檔中。
+  與 HTML 的關係：HTML 先使用語意清楚的 class 名稱，本檔再針對這些 class 定義可重複使用的視覺規則。
+*/
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.table {
+  /* 設定元素寬度，是版型與欄位比例的基礎。 */
+  width: 100%;
+  /* 設定邊框。 */
+  border: 1px solid #dcdcdc;
+  /* 設定 CSS 屬性 border-spacing，用來微調版面或視覺表現。 */
+  border-spacing: 0;
+  /* 設定 CSS 屬性 border-collapse，用來微調版面或視覺表現。 */
+  border-collapse: separate;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.table thead {
+  /* 設定 CSS 屬性 font-weight，用來微調版面或視覺表現。 */
+  font-weight: 500;}
+
+.table th,
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.table td {
+  /* 設定內距，控制內容與邊界之間的空間。 */
+  padding: 8px 10px;
+  /* 設定 CSS 屬性 border-bottom，用來微調版面或視覺表現。 */
+  border-bottom: 1px solid #dcdcdc;
+  /* 設定文字水平對齊。 */
+  text-align: left;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.table th {
+  /* 設定 CSS 屬性 border-bottom，用來微調版面或視覺表現。 */
+  border-bottom: 2px solid #dcdcdc;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.table tr:nth-child(even) td {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #f9fafb;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.table tr:last-child td {
+  /* 設定 CSS 屬性 border-bottom，用來微調版面或視覺表現。 */
+  border-bottom: none;}
+

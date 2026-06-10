@@ -1,0 +1,90 @@
+/*
+  檔案功能：_button.css
+  被引用目的：按鈕與行動呼籲樣式，例如觀看作品、閱讀更多或送出表單。
+  編寫安排：以模組化方式集中管理相關 class，讓 style.css 可以用 @import 組合多個小檔案，避免所有樣式混在單一大檔中。
+  與 HTML 的關係：HTML 先使用語意清楚的 class 名稱，本檔再針對這些 class 定義可重複使用的視覺規則。
+*/
+
+/*一般*/
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button {
+  /* 設定文字顏色。 */
+  color: #3e3e3e;
+  /* 設定 CSS 屬性 font-weight，用來微調版面或視覺表現。 */
+  font-weight: 300;
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #e2e2e2;
+  /* 設定內距，控制內容與邊界之間的空間。 */
+  padding: 4px 10px;
+  /* 設定元素顯示模式，例如 block、inline-block、flex。 */
+  display: inline-block;
+  /* 設定邊框。 */
+  border: none;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button:hover {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #eee;
+  /* 設定滑鼠游標樣式，提示可互動性。 */
+  cursor: pointer;}
+
+/*綠色*/
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-green {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #21ba45;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-green:hover {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #16ab39;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/*藍色*/
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-blue {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #2196f3;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-blue:hover {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #0c7cd5;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/*紅色*/
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-red {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #db2828;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-red:hover {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #d01919;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/*暗色*/
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-dark {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #010101;
+  /* 設定文字顏色。 */
+  color: #fff;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.button-dark:hover {
+  /* 設定背景顏色，建立區塊層次與視覺識別。 */
+  background-color: #3c3c3c;
+  /* 設定文字顏色。 */
+  color: #fff;}
+

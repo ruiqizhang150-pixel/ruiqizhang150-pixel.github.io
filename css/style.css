@@ -1,0 +1,93 @@
+/*
+  檔案功能：style.css
+  被引用目的：承接 HTML 頁面的主視覺與版型設計，讓藝術家網站呈現明確的版面節奏、色彩氣質與響應式結構。
+  編寫安排：先載入全域設定或模組 CSS，再針對頁首、導覽、內容區、作品卡片、側欄、頁尾與動畫狀態進行細部設定。
+  與 HTML 的關係：HTML 透過 class 名稱標記語意與區塊，本檔再用相同 class 選擇器把視覺樣式套用到對應區塊。
+*/
+
+/* 匯入 _global.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_global.css);
+
+/* 匯入 _layout.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_layout.css);
+
+/* 匯入 _typography.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_typography.css);
+
+/* 匯入 _nav.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_nav.css);
+
+/* 匯入 _button.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_button.css);
+
+/* 匯入 _form.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_form.css);
+
+/* 匯入 _media.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_media.css);
+
+/* 匯入 _table.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_table.css);
+
+/* 匯入 _grid.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_grid.css);
+
+/* 匯入 _card.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_card.css);
+
+/* 匯入 _helper.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_helper.css);
+
+/* 匯入 _theme.css：把相關樣式拆成模組，方便依功能維護與教學閱讀。 */
+@import url(_theme.css);
+
+/* NMA teaching additions */
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+body {
+  /* 設定字體家族，影響網站的氣質。 */
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei",
+    sans-serif;
+  /* 設定文字顏色。 */
+  color: #182022;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.site-logo {
+  /* 設定字距，常用於 Logo 或標題的空氣感。 */
+  letter-spacing: 0.08em;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.site-header-toggle {
+  /* 設定滑鼠游標樣式，提示可互動性。 */
+  cursor: pointer;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.site-menu.is-open {
+  /* 設定元素顯示模式，例如 block、inline-block、flex。 */
+  display: block;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.js-reveal {
+  /* 設定透明度，可用於淡入動畫。 */
+  opacity: 0;
+  /* 設定位移、縮放或旋轉，可用於動畫與動態感。 */
+  transform: translateY(18px);
+  /* 設定屬性變化的時間與速度曲線。 */
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.js-reveal.is-visible {
+  /* 設定透明度，可用於淡入動畫。 */
+  opacity: 1;
+  /* 設定位移、縮放或旋轉，可用於動畫與動態感。 */
+  transform: translateY(0);}
+
+/* 選擇器開頭，指定接下來的屬性要套用到哪些 HTML 元素。 */
+.artist-note {
+  /* 設定行高，影響段落閱讀節奏。 */
+  line-height: 1.8;
+  /* 設定字距，常用於 Logo 或標題的空氣感。 */
+  letter-spacing: 0.03em;}
+
