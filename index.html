@@ -21,6 +21,11 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            /* 【全域防選取】防止網頁上任何文字或元件在點擊時意外被滑鼠框選藍色 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -92,7 +97,6 @@
             transform-style: preserve-3d;
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 1;
-            cursor: pointer;
         }
 
         /* 區分正面與反面 */
@@ -196,11 +200,14 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
+        /* 【重要優化】內頁插畫圖片鎖死：無法被滑鼠藍色選取、無法被拖曳拖出陰影 */
         .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            pointer-events: none;
+            pointer-events: none;      /* 讓滑鼠點擊事件完全穿透圖片，由外層容器接收 */
+            -webkit-user-drag: none;   /* 鎖死圖片拖曳行為 (WebKit 核心瀏覽器如 Chrome, Safari) */
+            user-drag: none;           /* 鎖死圖片拖曳行為 */
         }
 
         .page-number {
@@ -273,7 +280,6 @@
             bottom: 20px; 
             cursor: pointer;
             z-index: 10000;
-            user-select: none;
             transition: filter 0.3s ease, transform 0.1s ease;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
             transform-origin: bottom center; 
@@ -283,12 +289,14 @@
             filter: drop-shadow(0 0 15px var(--accent-color)) brightness(1.2);
         }
 
+        /* 【重要優化】小寵物圖片鎖死：防止在連續點擊（Combo）時被意外框選成藍色或拖曳出虛影 */
         #pet-img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            pointer-events: none;
-            transition: filter 0.2s ease; 
+            pointer-events: none;      /* 事件交由父層控制 */
+            -webkit-user-drag: none;   /* 防止滑鼠拉動圖片 */
+            user-drag: none;
         }
 
         /* 飄浮文字特效 */
@@ -332,7 +340,7 @@
                     <h1>Zhang Ruiqi</h1>
                     <p style="color: var(--accent-color); letter-spacing: 2px;"> Brawl Stars fan art</p>
                     
-                    <div class="hint">點擊封面開始翻閱 ➔</div>
+                    <div class="hint">點擊右側下一頁，點擊左側上一頁 ➔</div>
                     <div class="page-number">封面</div>
                 </div>
                 <div class="page-back">
@@ -364,7 +372,7 @@
                 </div>
             </div>
 
-            <div class="page" style="z-index: 9;">
+            <div class="page" style="z-index: 8;">
                 <div class="page-front">
                     <div class="img-container">
                         <img src="img/1.jpg" alt="作品 1">
@@ -379,7 +387,7 @@
                 </div>
             </div>
 
-            <div class="page" style="z-index: 8;">
+            <div class="page" style="z-index: 7;">
                 <div class="page-front">
                     <div class="img-container">
                         <img src="img/3.jpg" alt="作品 3">
@@ -394,7 +402,7 @@
                 </div>
             </div>
 
-            <div class="page" style="z-index: 7;">
+            <div class="page" style="z-index: 6;">
                 <div class="page-front">
                     <div class="img-container">
                         <img src="img/6.jpg" alt="作品 6">
@@ -409,7 +417,7 @@
                 </div>
             </div>
 
-            <div class="page" style="z-index: 6;">
+            <div class="page" style="z-index: 5;">
                 <div class="page-front">
                     <div class="img-container">
                         <img src="img/8.jpg" alt="作品 8">
@@ -424,7 +432,7 @@
                 </div>
             </div>
 
-            <div class="page" style="z-index: 5;">
+            <div class="page" style="z-index: 4;">
                 <div class="page-front">
                     <div class="img-container">
                         <img src="img/10.jpg" alt="作品 10">
@@ -439,7 +447,7 @@
                 </div>
             </div>
 
-            <div class="page" style="z-index: 4;">
+            <div class="page" style="z-index: 3;">
                 <div class="page-front cover-back">
                     <h2>THE END</h2>
                     <p style="color: rgba(255,255,255,0.4); font-size: 0.9rem;">Thank you for watching</p>
@@ -459,7 +467,7 @@
 
     <script>
         /* ----------------------------------------------------------------------
-         * (A) 3D 電體書翻頁控制邏輯與【跨維度風力感應】
+         * (A) 左右分區點擊翻頁控制邏輯 (支援手機雙向切換)
          * ---------------------------------------------------------------------- */
         const pages = document.querySelectorAll('.page');
         const bookContainer = document.getElementById('book-container');
@@ -475,41 +483,48 @@
         }
         updateZIndices();
 
-        pages.forEach((page, index) => {
-            page.addEventListener('click', (e) => {
-                let direction = 1; // 1代表往左翻，-1代表往右翻
-                if (page.classList.contains('flipped')) {
-                    page.classList.remove('flipped');
-                    direction = -1;
-                } else {
-                    page.classList.add('flipped');
-                    direction = 1;
+        bookContainer.addEventListener('click', (e) => {
+            const rect = bookContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left; 
+            const bookWidth = rect.width;
+
+            if (clickX > bookWidth / 2) {
+                // [點擊右半邊] -> 往下一頁翻
+                for (let i = 0; i < pages.length; i++) {
+                    if (!pages[i].classList.contains('flipped')) {
+                        pages[i].classList.add('flipped');
+                        triggerPetFright();
+                        triggerPageFlipWind(1); 
+                        break;
+                    }
                 }
-                updateZIndices();
-                updateVisiblePages(); 
-
-                // 1. 跨維度驚嚇寵物
-                triggerPetFright();
-
-                // 2. 【新功能】引發網頁翻頁物理狂風，狂風會吹散全螢幕背景粒子
-                triggerPageFlipWind(direction);
-            });
+            } else {
+                // [點擊左半邊] -> 回上一頁合上
+                for (let i = pages.length - 1; i >= 0; i--) {
+                    if (pages[i].classList.contains('flipped')) {
+                        pages[i].classList.remove('flipped');
+                        triggerPetFright();
+                        triggerPageFlipWind(-1); 
+                        break;
+                    }
+                }
+            }
+            updateZIndices();
+            updateVisiblePages();
         });
 
 
         /* ----------------------------------------------------------------------
-         * (B) 全域進化版 Canvas：太空微塵背景 + 滑鼠萬有引力 + Combo 愛心煙火
+         * (B) 全域 Canvas：太空微塵背景 + 滑鼠萬有引力 + Combo 愛心煙火
          * ---------------------------------------------------------------------- */
         const canvas = document.getElementById('trail-canvas');
         const ctx = canvas.getContext('2d');
         
-        let ambientParticles = []; // 常駐太空微塵粒子
-        let burstParticles = [];    // 點擊爆發的愛心煙火粒子
+        let ambientParticles = []; 
+        let burstParticles = [];    
         
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
-        let lastMouseX = mouseX;
-        let lastMouseY = mouseY;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -517,7 +532,6 @@
             initAmbientParticles();
         }
 
-        // 初始化背景太空微塵（100顆）
         function initAmbientParticles() {
             ambientParticles = [];
             const count = 100; 
@@ -525,19 +539,18 @@
                 ambientParticles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5, // 緩慢自主移動速度
+                    vx: (Math.random() - 0.5) * 0.5, 
                     vy: (Math.random() - 0.5) * 0.5,
                     radius: Math.random() * 2.5 + 0.5,
                     alpha: Math.random() * 0.4 + 0.1,
                     baseAlpha: Math.random() * 0.4 + 0.1,
-                    phase: Math.random() * Math.PI * 2 // 用於呼吸燈效果
+                    phase: Math.random() * Math.PI * 2 
                 });
             }
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // 滑鼠移動：計算視差與注入滑鼠引力
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -550,24 +563,28 @@
             bookContainer.style.transform = `rotateX(${-dy * 6}deg) rotateY(${dx * 6}deg)`;
         });
 
+        window.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                mouseX = e.touches[0].clientX;
+                mouseY = e.touches[0].clientY;
+            }
+        });
+
         window.addEventListener('mouseleave', () => {
             bookContainer.style.transform = `rotateX(0deg) rotateY(0deg)`;
         });
 
-        // 【新功能】翻頁時吹起大風的物理公式
         function triggerPageFlipWind(dir) {
-            const windForce = dir * 15; // 風力強度
+            const windForce = dir * 15; 
             ambientParticles.forEach(p => {
                 p.vx += windForce * (Math.random() * 0.5 + 0.5);
                 p.vy += (Math.random() - 0.5) * 5;
             });
-            // 同時也吹散爆發中的愛心煙火
             burstParticles.forEach(p => {
                 p.vx += windForce * 0.8;
             });
         }
 
-        // 【新功能】繪製愛心形狀的函數 (不使用任何外部圖檔)
         function drawHeart(ctx, x, y, size) {
             ctx.beginPath();
             ctx.moveTo(x, y + size / 4);
@@ -579,7 +596,6 @@
             ctx.fill();
         }
 
-        // 【新功能】連擊小寵物時，從滑鼠周圍噴發大量愛心煙火
         function createHeartBurst(x, y, count) {
             const colors = ['#ff3366', '#5f33ff', '#ff00ff', '#00ffff', '#ffff00'];
             for (let i = 0; i < count; i++) {
@@ -589,7 +605,7 @@
                     x: x,
                     y: y,
                     vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed - 2, // 帶有一點向上的初速度
+                    vy: Math.sin(angle) * speed - 2, 
                     size: Math.random() * 6 + 4,
                     color: colors[Math.floor(Math.random() * colors.length)],
                     alpha: 1,
@@ -600,43 +616,31 @@
             }
         }
 
-        // 背景粒子物理主迴圈
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 1. 渲染與計算太空微塵背景 (萬有引力跟隨)
             ambientParticles.forEach(p => {
-                // 自主呼吸燈
                 p.phase += 0.01;
                 p.alpha = p.baseAlpha + Math.sin(p.phase) * 0.1;
 
-                // 計算微塵與滑鼠的距離
                 const dx = mouseX - p.x;
                 const dy = mouseY - p.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 
-                // 萬有引力半徑設定為 250 像素
                 if (dist < 250) {
                     const force = (250 - dist) / 250;
                     p.vx += (dx / dist) * force * 0.15;
                     p.vy += (dy / dist) * force * 0.15;
                 }
 
-                // 摩擦力減速（避免無限加速）
-                p.vx *= 0.95;
-                p.vy *= 0.95;
+                p.vx *= 0.95; p.vy *= 0.95;
+                p.x += p.vx; p.y += p.vy;
 
-                // 更新坐標
-                p.x += p.vx;
-                p.y += p.vy;
-
-                // 邊界回彈或流體循環
                 if (p.x < 0) p.x = canvas.width;
                 if (p.x > canvas.width) p.x = 0;
                 if (p.y < 0) p.y = canvas.height;
                 if (p.y > canvas.height) p.y = 0;
 
-                // 畫出微塵
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(95, 51, 255, ${p.alpha})`;
@@ -645,12 +649,10 @@
                 ctx.fill();
             });
 
-            // 2. 渲染與計算 Combo 噴發的霓虹愛心煙火
             for (let i = burstParticles.length - 1; i >= 0; i--) {
                 const p = burstParticles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.vy += 0.1; // 受到微弱重力往下墜
+                p.x += p.vx; p.y += p.vy;
+                p.vy += 0.1; 
                 p.alpha -= p.decay;
 
                 if (p.alpha <= 0) {
@@ -663,7 +665,6 @@
                 ctx.fillStyle = p.color;
                 ctx.shadowBlur = 10;
                 ctx.shadowColor = p.color;
-                // 渲染霓虹愛心
                 drawHeart(ctx, p.x, p.y, p.size);
                 ctx.restore();
             }
@@ -689,7 +690,6 @@
         let totalLikes = 0; 
         let isFrightened = false; 
 
-        // Combo 連擊計數器變數
         let comboCount = 0;
         let lastClickTime = 0;
 
@@ -733,7 +733,6 @@
             const maxX = window.innerWidth - 110;
             const distanceToFloor = window.innerHeight - mouseY;
 
-            // 智慧跟隨模式
             if (distanceToFloor < 250 && !isFrightened) {
                 const targetX = mouseX - 55;
                 const diffX = targetX - petX;
@@ -744,21 +743,18 @@
                     speedX = diffX > 0 ? 0.1 : -0.1;
                 }
             } else {
-                // 自由漫步
                 if (isFrightened && !isJumping) {
                     isFrightened = false;
                 }
                 petX += speedX;
             }
 
-            // 跳躍物理
             if (isJumping) {
                 jumpSpeed += gravity;
                 jumpY += jumpSpeed;
                 if (jumpY >= 0) {
                     jumpY = 0;
                     isJumping = false;
-                    
                     bookContainer.classList.add('shake-effect');
                     setTimeout(() => { bookContainer.classList.remove('shake-effect'); }, 150);
                 }
@@ -769,7 +765,6 @@
                 }
             }
 
-            // 碰撞反彈
             if (petX <= 0) {
                 petX = 0; speedX = Math.abs(speedX === 0 ? 2 : speedX);
             } else if (petX >= maxX) {
@@ -792,11 +787,9 @@
         }
         requestAnimationFrame(updatePet);
 
-        // 點擊按讚 + 連擊爆發粒子機制
         pet.addEventListener('mousedown', (e) => {
             const currentTime = Date.now();
             
-            // 判斷是否為連擊 (兩次點擊間隔小於 600 毫秒)
             if (currentTime - lastClickTime < 600) {
                 comboCount++;
             } else {
@@ -814,20 +807,17 @@
             likesData[targetPage]++;
             totalLikes++;
 
-            // 變換寵物霓虹濾鏡
             const currentHue = (totalLikes * 25) % 360;
             petImg.style.filter = `hue-rotate(${currentHue}deg) brightness(1.3)`;
 
-            // 【新功能】根據 Combo 連擊數量決定噴發的愛心煙火數量
-            const burstCount = Math.min(comboCount * 5, 40); // 越多擊噴越多，上限 40 顆
+            const burstCount = Math.min(comboCount * 5, 40); 
             createHeartBurst(e.clientX, e.clientY, burstCount);
 
-            // 建立浮空文字元件 (如果是 Combo 會特別標註)
             const effect = document.createElement('div');
             effect.className = 'like-effect';
             if (comboCount > 1) {
                 effect.innerHTML = `🔥 COMBO ${comboCount}! ${targetPage} +${likesData[targetPage]}`;
-                effect.style.color = '#ffff00'; // Combo 使用亮黃色
+                effect.style.color = '#ffff00'; 
             } else {
                 effect.innerHTML = `❤ ${targetPage}: +${likesData[targetPage]}`;
             }
@@ -839,7 +829,7 @@
             document.body.appendChild(effect);
 
             isJumping = true;
-            jumpSpeed = -4 - Math.min(comboCount * 0.5, 4); // 連擊時寵物會越跳越高！
+            jumpSpeed = -4 - Math.min(comboCount * 0.5, 4); 
 
             effect.addEventListener('animationend', () => { effect.remove(); });
         });
