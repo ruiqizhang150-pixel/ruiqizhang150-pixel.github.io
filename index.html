@@ -1,0 +1,314 @@
+<!doctype html>
+<!-- 宣告 HTML5 文件類型，讓瀏覽器以標準模式解析頁面。 -->
+
+<html lang="zh-Hant">
+  <!-- head 區：放置頁面設定、標題、字型與樣式連結。 -->
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <title>創意網頁設計｜新媒體藝術家個人網站範例</title>
+    <!--
+      引用 css/normalize.css
+      作用：先統一不同瀏覽器的預設樣式，例如 body 外距、圖片縮放、連結樣式與盒模型，讓後續版面設計有穩定的起點。
+      編寫安排：此檔必須放在 style.css 之前載入；它只處理基礎預設值，不負責藝術家網站的主視覺，避免與後續客製化樣式互相混淆。
+    -->
+    <link href="css/normalize.css" rel="stylesheet" />
+    <!--
+      引用 css/style.css
+      作用：負責本頁主要視覺設計，包含網站容器、導覽列、頁首、內容欄位、作品卡片、頁尾、響應式寬度與新媒體藝術網站的整體氣質。
+      編寫安排：此檔放在 normalize.css 之後載入，並透過 class 選擇器對應 HTML 結構；部分範例會用 @import 拆分 _global、_layout、_nav、_card 等模組，讓學生看懂大型網站如何由模組組裝。
+    -->
+    <link href="css/style.css" rel="stylesheet" />
+
+    <meta content="創意網頁設計課程：新媒體藝術家個人網站首頁範例。" name="description" />
+  </head>
+  <!-- body 區：放置使用者在瀏覽器中看得到的內容。 -->
+  <body>
+    <!-- header：網站頂部，通常放標誌、主選單與首頁主視覺。 -->
+    <header class="site-header dark-bg">
+      <!-- logo -->
+
+      <div class="site-logo">AURA CHEN</div>
+
+      <!-- 手機選單 -->
+
+      <a class="pull-right site-header-toggle" href="#">☰</a>
+
+      <!-- 主要選單 -->
+      <!-- nav：導覽區，協助使用者切換作品、關於、展覽或聯絡頁。 -->
+      <nav class="nav site-menu pull-right">
+        <a class="nav-link become-btn" href="#">關於藝術家</a>
+
+        <a class="nav-link" href="#">作品集</a>
+
+        <a class="nav-link active" href="#">媒介實驗</a>
+      </nav>
+    </header>
+
+    <div class="site-banner">
+      <div class="site-banner-bg"></div>
+
+      <div class="site-banner-content">
+        <img alt="北弦" class="img-fluid" src="images/1755016377989.png" />
+       <h1 class="card-center text-white title">北弦</h1>
+      </div>
+
+      <div class="site-banner-form">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-8">
+              <!-- form：表單可收集聯絡、訂閱或後台管理資料。 -->
+              <input class="form-element" placeholder="搜尋作品、媒材、展覽或年份" type="text" />
+            </div>
+
+            <div class="col-xs-4">
+              <!-- form：表單可收集聯絡、訂閱或後台管理資料。 -->
+              <input class="button button-green" type="submit" value="送出" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main：頁面的主要內容容器，可放置作品、文字與版面模組。 -->
+    <div class="site-main">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="title">
+            <div class="section-title">荒野亂鬥同人</div>
+
+            <div class="title-sub">
+              北弦經典好物。
+            </div>
+          </h2>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1771432618312.png" />
+
+              <h2 class="card-center text-white title">美樂蒂貓貓</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1750579802720.png" />
+
+              <h2 class="card-center text-white title">愛莉</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1747504570280.png" />
+
+              <h2 class="card-center text-white title">葛雷特</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header text-center">
+          <h2 class="title">
+            <div class="section-title">作品系列</div>
+
+            <div class="title-sub">
+              荒野亂鬥系列作品。
+            </div>
+          </h2>
+        </div>
+
+        <!-- 第一排 -->
+
+        <div class="row card-grid">
+          <div class="col-sm-8">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/3333.png" />
+
+              <h2 class="card-center text-white title">貓貓系列</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1751037022865.png" />
+
+              <h2 class="card-center text-white title">愛莉鱷魚</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第二排 -->
+
+        <div class="row card-grid">
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1751113409590.png" />
+
+              <h2 class="card-center text-white title">愛莉</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1756017814609.png" />
+
+              <h2 class="card-center text-white title">美樂蒂</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1756110214959.png" />
+
+              <h2 class="card-center text-white title">邦尼</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第三排 -->
+
+        <div class="row card-grid">
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1755677123082.png" />
+
+              <h2 class="card-center text-white title">逼逼</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-8">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1755265959686.png" />
+
+              <h2 class="card-center text-white title">查理</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1748188100364.png" />
+
+        <h2 class="title text-center card-center">
+          <div class="section-title">北弦
+          
+          </div>
+
+          <div class="title-sub">
+            在作品、研究與展演之間，建立可被觀看、可被聽見、也可被互動的藝術檔案。
+          </div>
+        </h2>
+      </div>
+
+      <div class="section-header text-center">
+        <h2 class="title">作品</h2>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1780567483381.png" />
+
+              <h2 class="card-center text-white title">畫</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1779870413065.png" />
+
+              <h2 class="card-center text-white title">畫</h2>
+            </div>
+          </div>
+
+          <div class="col-sm-4">
+            <div class="card">
+              <img alt="新媒體藝術作品示意影像" class="img-fluid" src="images/1778656327318.png" />
+
+              <h2 class="card-center text-white title">畫</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer：頁尾區，常放版權、聯絡資訊與社群連結。 -->
+    <footer class="site-footer dark-bg">
+      <div class="container site-footer-inner">
+        <div class="row">
+          <div class="col-sm-6 col-md-3">
+            <!-- 其他選單 -->
+
+            <h3 class="block-title">生成影像實驗</h3>
+
+            <ul class="nav">
+              <li><a class="nav-link" href="#">關於藝術家</a></li>
+              <li><a class="nav-link" href="#">作品集</a></li>
+              <li><a class="nav-link" href="#">媒介實驗</a></li>
+              <li><a class="nav-link" href="#">展覽經歷</a></li>
+              <li><a class="nav-link" href="#">創作筆記</a></li>
+              <li><a class="nav-link" href="#">聯絡</a></li>
+              <li><a class="nav-link" href="#">藝術家自述</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6 col-md-3">
+            <!-- 其他選單 -->
+
+            <h3 class="block-title">展演紀錄</h3>
+
+            <ul class="nav">
+              <li><a class="nav-link" href="#">關於藝術家</a></li>
+              <li><a class="nav-link" href="#">作品集</a></li>
+              <li><a class="nav-link" href="#">媒介實驗</a></li>
+              <li><a class="nav-link" href="#">展覽經歷</a></li>
+              <li><a class="nav-link" href="#">創作筆記</a></li>
+              <li><a class="nav-link" href="#">聯絡</a></li>
+              <li><a class="nav-link" href="#">藝術家自述</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6 col-md-3">
+            <!-- 其他選單 -->
+
+            <h3 class="block-title">媒介實驗</h3>
+
+            <ul class="nav">
+              <li><a class="nav-link" href="#">關於藝術家</a></li>
+              <li><a class="nav-link" href="#">作品集</a></li>
+              <li><a class="nav-link" href="#">媒介實驗</a></li>
+              <li><a class="nav-link" href="#">展覽經歷</a></li>
+              <li><a class="nav-link" href="#">創作筆記</a></li>
+              <li><a class="nav-link" href="#">聯絡</a></li>
+              <li><a class="nav-link" href="#">藝術家自述</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-6 col-md-3">
+            <!-- 其他選單 -->
+
+            <h3 class="block-title">工作室筆記</h3>
+
+            <ul class="nav">
+              <li><a class="nav-link" href="#">關於藝術家</a></li>
+              <li><a class="nav-link" href="#">作品集</a></li>
+              <li><a class="nav-link" href="#">媒介實驗</a></li>
+              <li><a class="nav-link" href="#">展覽經歷</a></li>
+              <li><a class="nav-link" href="#">創作筆記</a></li>
+              <li><a class="nav-link" href="#">聯絡</a></li>
+              <li><a class="nav-link" href="#">藝術家自述</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--
+      引用 js/site.js
+      作用：負責頁面互動，例如手機選單開合、可及性 aria 狀態更新，以及讓作品卡片或內容區塊在進入畫面時產生淡入動畫。
+      編寫安排：此檔放在 body 結尾載入，確保 HTML 元素已經出現在頁面中；JavaScript 會用 querySelector 找到 HTML 的 class，再透過 classList 新增或切換 CSS class，讓互動邏輯與視覺樣式分工合作。
+    -->
+    <script src="js/site.js"></script>
+  </body>
+</html>
